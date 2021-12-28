@@ -6,6 +6,8 @@
     para relembrar.
 */
 
+// const { type } = require("express/lib/response")
+
 /*
   01
 
@@ -13,9 +15,12 @@
     valor no console.
 */
 
-function convertToString (value) {
-  return String(value)
-}
+// function convertToString (value) {
+//   return String(value)
+// }
+const convertToString = value => String(value)
+// console.log(convertToString(300))
+
 
 /*
   02
@@ -23,7 +28,8 @@ function convertToString (value) {
   - Crie uma função que retorne a quantidade de caracteres que uma string  
     recebida por parâmetro possui.
 */
-
+const stringLength = value => `Essa string possui um total de ${value.length} letras.`
+// console.log(stringLength('bruno'))
 /*
   03
 
@@ -33,6 +39,9 @@ function convertToString (value) {
 
   "CHOCOTONE E OVO DE PÁSCOA JUNTOS NO MERCADO EM PLENO FEVEREIRO"
 */
+const lowerCase = string => string.toLowerCase()
+// console.log(lowerCase("CHOCOTONE E OVO DE PÁSCOA JUNTOS NO MERCADO EM PLENO FEVEREIRO"))
+
 
 /*
   04
@@ -40,6 +49,8 @@ function convertToString (value) {
   - Crie uma função que recebe 2 parâmetros: um caractere e uma string;
   - Ao ser invocada, a função deve retornar o index do caractere na string.
 */
+const getIndex = (character, string) => string.indexOf(character)
+// console.log(getIndex('u','bruno'))
 
 /*
   05
@@ -47,6 +58,11 @@ function convertToString (value) {
   - Crie uma função que, ao ser invocada, retorna um boolean indicando se o item  
     passado por argumento existe no array (também passado por argumento).
 */
+const pizzas = ['4 queijos', 'Margarita', 'Alho']
+const isItemIncluded = (item, arr) => {
+  return arr.includes(item)
+}
+// console.log(isItemIncluded('Margarita', pizzas))
 
 /*
   06
@@ -54,13 +70,20 @@ function convertToString (value) {
   - Crie uma função que retorna a concatenação de 2 arrays, passados como  
     argumentos em sua invocação;
 */
+const concatArray = (arr1, arr2) => arr1.concat(arr2)
 
+// console.log(concatArray([1,2],[3,4]))
 /*
   07
 
   - Crie uma função que retorna o array passado como argumento em sua invocação,  
     mas com o último item removido.
 */
+const removeLastItem = (arr) => {
+  arr.pop()
+  return arr
+}
+// console.log(removeLastItem([1,2,3]))
 
 /*
   08
@@ -68,6 +91,9 @@ function convertToString (value) {
   - Crie uma função que retorna se o valor passado como argumento em sua  
     invocação é null.
 */
+let b = 2
+const isNull = value => value === null
+// console.log(isNull(b))
 
 /*
   09
@@ -80,6 +106,13 @@ function convertToString (value) {
     foi exibido.
 */
 
+const invokeCallback = callback => {
+  callback()
+}
+const LogName = () => console.log('Bruno')
+
+// invokeCallback(LogName)
+
 /*
   10
 
@@ -90,6 +123,11 @@ function convertToString (value) {
   - Faça com que a invocação da função descrita no 1º item deste exercício (10)  
     resulte no triplo de 33.
 */
+const callCallback = (value, callback) => {
+ return callback(value)
+}
+const tripelNum = num => num * 3
+// console.log(callCallback(33, tripelNum))
 
 /*
   11
@@ -101,6 +139,12 @@ function convertToString (value) {
 */
 
 const numbers = [1, 2, 3]
+const showNumbersInfo = (item,index, arr) => {
+  const itemPosition = index + 1
+  const items = arr.join(', ')
+  console.log(`O ${itemPosition}° do array [${items}] é ${item}`)
+}
+// numbers.forEach(showNumbersInfo)
 
 /*
   12
@@ -113,9 +157,11 @@ const numbers = [1, 2, 3]
 const letters = ['v', 'e', 'p']
 let lettersCopy = []
 
-for (let i = 0; i < letters.length; i++) {
-  lettersCopy.push(letters[i])
-}
+// for (let i = 0; i < letters.length; i++) {
+//   lettersCopy.push(letters[i])
+// }
+letters.forEach(letter => lettersCopy.push(letter))
+// console.log(lettersCopy)
 
 /*
   13
@@ -145,8 +191,12 @@ const review = [
 ]
 
 let paragraphs = ''
+const createParagraphs = paragraph => {
+  paragraphs+= `<p>${paragraph}</p>`
+}
+review.forEach(createParagraphs)
 
-section.innerHTML = paragraphs
+// section.innerHTML = paragraphs
 
 /*
   14
@@ -168,3 +218,40 @@ section.innerHTML = paragraphs
     pelo restante da quantidade de pessoas que curtiram o post (além das duas  
     pessoas já mencionadas no início da mensagem).
 */
+const likes = (arrNames = []) => {
+  const personOne = arrNames[0]
+  const personTwo = arrNames[1]
+  const personTree = arrNames[2]
+  const totalPersons = arrNames.length
+  const totalNamesMinusTwo = totalPersons - 2
+
+  /* Minha resolução:
+
+    if(totalPersons === 0){
+      return 'Ninguém curtiu isso'
+    }else if(totalPersons === 1){
+      return `${personOne} curtiu isso`
+    } else if(totalPersons === 2){
+      return `${personOne} e ${personTwo} curtiram isso`
+    } else if(totalPersons === 3) {
+      return `${personOne}, ${personTwo} e ${personTree} curtiram isso`
+    } else if(totalPersons > 3) {
+      return `${personOne}, ${personTwo} e mais ${totalNamesMinusTwo} pessoas curtiram isso`
+    }
+  */
+  //Resolução Roger
+  switch (totalPersons) {
+    case 0:
+      return 'Ninguém curtiu isso'
+    case 1:
+      return `${personOne} curtiu isso`
+    case 2: 
+      return `${personOne} e ${personTwo} curtiram isso`
+    case 3:
+      return `${personOne}, ${personTwo} e ${personTree} curtiram isso`
+    default:
+      return `${personOne}, ${personTwo} e mais ${totalNamesMinusTwo} pessoas curtiram isso`
+  }  
+}
+const namesLike = ['bruno','barbara','juliana', 'isabela', 'victor']
+// console.log(likes(namesLike))
