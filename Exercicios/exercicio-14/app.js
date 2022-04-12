@@ -4,8 +4,8 @@
   - Faça com que o texto do h1 do index.html seja exibido com todas as letras  
     maiúsculas.
 */
-
-
+const title = document.querySelector('h1')
+title.innerText = title.innerText.toUpperCase()
 
 /*
   02
@@ -15,6 +15,14 @@
 */
 
 const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
+let listNumbers = document.querySelector('ul')
+
+const insertNumberIntoUl = number => {
+  listNumbers.innerHTML += `<li class='number'>${number}</li>`
+}
+
+numbers.forEach( insertNumberIntoUl )
+
 
 /*
   03
@@ -23,8 +31,20 @@ const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
     - Se o número é par, ele deve ser exibido na cor "lightblue";
     - Se o número é ímpar, exiba-o na cor "pink".
 */
+let listItens = document.querySelectorAll('.number')
 
+const changeLiColor = item => {
 
+  const isEven = Number(item.innerText)  %2 === 0
+
+  if(isEven) {
+    item.classList.add('numberIsPar')
+  } else {
+    item.classList.add('numberIsImpar')
+  }
+  
+}
+listItens.forEach( changeLiColor )
 
 /*
   04
@@ -33,7 +53,8 @@ const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
 
   P.s: a classe "body-background" já está declarada no style.css.
 */
-
+const body = document.querySelector('body')
+body.classList.add('body-background')
 
 
 /*
@@ -44,7 +65,9 @@ const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
     do link do index.html.
 */
 
+const link = document.querySelector('a')
 
+link.setAttribute('href', 'https://github.com/roger-melo-treinamentos/curso-de-js-roger-melo')
 
 /*
   06
@@ -52,7 +75,7 @@ const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
   - Exiba o novo valor do atributo href do link no console.
 */
 
-
+console.log(link.getAttribute('href'));
 
 /*
   07
@@ -61,6 +84,7 @@ const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
     manipuladas via JS no h1.
 */
 
+console.log(title.style);
 
 
 /*
@@ -69,7 +93,7 @@ const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
   - Remova a classe "body-background", do elemento body.
 */
 
-
+body.classList.remove('body-background')
 
 /*
   09
@@ -77,3 +101,4 @@ const numbers = [ 53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55 ]
   - Se o link da página possuir uma classe "link", remova-a;
   - Não utilize o método remove() para fazer isso.
 */
+link.classList.toggle('link')

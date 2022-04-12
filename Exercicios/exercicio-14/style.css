@@ -10,3 +10,10 @@
 .link {
   color: lightblue;
 }
+
+.numberIsPar {
+  color: lightblue;
+}
+.numberIsImpar {
+  color: pink;
+}
