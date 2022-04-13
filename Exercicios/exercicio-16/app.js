@@ -7,16 +7,18 @@
 
 const div = document.querySelector('div')
 const elementsInsideDiv = Array.from(div.children)
+const h2 = document.querySelector('h2')
+const textEgg = document.querySelector('.egg')
+const button = document.querySelector('button')
 
-elementsInsideDiv.forEach(element => {
-  element.addEventListener('click', () => {
-    console.log('Clicou no filho da div.')
-  })
-})
+// elementsInsideDiv.forEach(element => {
+//   element.addEventListener('click', event => {
 
-div.addEventListener('click', () => {
-  console.log('Clicou na div.')
-})
+//     event.stopPropagation()
+//     const tag = event.target.tagName.toLowerCase()
+//     h2.innerText = `Clicou no ${tag}, filho da div.`
+//   })
+// })
 
 /*
   02
@@ -56,6 +58,35 @@ div.addEventListener('click', () => {
     clicado.
 */
 
+const showClickElement = ({target}) => {
+  const clickedElementName = target.tagName.toLowerCase()
+
+  if(clickedElementName === 'div') {
+    h2.innerText = 'Clicou na div.' 
+    return   
+  }
+
+  h2.textContent = `Clicou no ${clickedElementName}, filho da div.`
+}
+
+const logCopyMessage = () => {
+  console.log("Texto copiado!");
+}
+
+const showCoodinates = ({ offsetX, offsetY }) => {
+  textEgg.textContent = `Eixo X: ${offsetX}| Eixo Y:${offsetY}`
+}
+
+const changeEggColor = () => {
+  textEgg.style.background = 'lightgoldenrodyellow'
+}
+
+
+textEgg.addEventListener('mousemove', showCoodinates)
+button.addEventListener('click', changeEggColor)
+h2.addEventListener('copy', logCopyMessage)
+div.addEventListener('click', showClickElement)
+
 /*
   07
 
@@ -76,3 +107,9 @@ const people = [
   { id: 8, name: 'Matheus Manucci', profession: 'Piloto' },
   { id: 9, name: 'Hamilton Silva', profession: 'Advogado' }
 ]
+
+const existFrontEnd = people.some( ({ profession }) => profession === 'Front-end developer')
+
+if(existFrontEnd){
+  console.log('O array people contém, no mínimo, um(a) Front-end developer.');
+}
