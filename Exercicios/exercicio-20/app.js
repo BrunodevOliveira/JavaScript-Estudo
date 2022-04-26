@@ -10,8 +10,12 @@
   - Após um segundo e meio do carregamento da página, exiba no console a  
     mensagem "Um segundo e meio se passaram desde que a página foi carregada".
 */
-
-
+const logMessage = message => {
+  console.log(message)
+}
+const message = 'Um segundo e meio se passaram desde que a página foi carregada'
+// setTimeout(logMessage, 1500, message)
+setTimeout(console.log, 1500, message)
 
 /* 
   03
@@ -19,6 +23,44 @@
   - Faça o contador do index.html funcionar;
   - O clique no botão "Parar contador" deve fazer com que o contador exiba 0.
 */
+const buttonInitCounter = document.querySelector('.button-init-counter')
+const buttonStopCounter = document.querySelector('.button-stop-counter')
+const h1 = document.querySelector('h1')
+const div = document.querySelector('.teste')
+
+let timerID
+const startCount = () => {
+  const countId = setInterval(() => {
+    const incrementedCounter = Number(h1.textContent) + 1
+    h1.textContent = incrementedCounter
+  }, 1000);
+
+  timerID = countId
+}
+
+const stopCount = () => {
+  clearInterval(timerID)
+  h1.textContent = 0
+}
+
+buttonInitCounter.addEventListener('click', startCount)
+buttonStopCounter.addEventListener('click', stopCount)
+
+// div.addEventListener('click', event => {
+//   const clickedElement = event.target.outerText
+ 
+//   let counter = 1
+
+//   const timerID = setInterval(() => {
+//     h1.textContent = counter
+//     counter++
+//   }, 1000);
+  
+//   if(clickedElement === 'Parar contador') {
+//     clearInterval(timerID)
+//     h1.textContent = 0
+//   }
+// })
 
 
 
