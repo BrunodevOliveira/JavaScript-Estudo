@@ -23,7 +23,7 @@ double(3)
 const result = double(3) //Para obter o valor dessa const fora do escopo da função precisamos utilizar o RETURN. Como a função está retornando um valor, a expressão que utilizamos para chamar a função resulta no valor que a função retornou, ou seja, double(3) agora armazena o valor de return.
 
 // Arrow Functions
-const double = (number) => {
+const double1 = (number) => {
     return number * 2
 }
 

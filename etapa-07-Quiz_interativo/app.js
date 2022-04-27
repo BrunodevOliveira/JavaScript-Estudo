@@ -38,7 +38,7 @@ const animateFinalSocore = () => {
     let counter = 0
 
     const timer = setInterval(() => {
-        if(counter === score) {
+        if (counter === score) {
             clearInterval(timer)
         }
         finalScoreContainer.querySelector('span').textContent = `${counter++}%`
@@ -60,5 +60,5 @@ form.addEventListener('submit', event => {
 
     // Anima a pontuação final
     animateFinalSocore()
-   
+
 })
