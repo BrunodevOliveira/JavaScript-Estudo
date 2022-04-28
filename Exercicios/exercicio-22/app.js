@@ -25,8 +25,13 @@ const characters = [
   { id: 04, name: 'Mufasa' }
 ]
 
-const orderOfCharactersById = characters.map(character => character).sort((item1, item2) => item1.id - item2.id)
-// console.log(orderOfCharactersById)
+const orderOfCharactersById = characters
+  //crio um novo objeto para que ele deixe de ser do tipo referência e tenha uma cópia dos valores
+  .map(({ id, name }) => ({  id,  name})) 
+  .sort((item1, item2) => item1.id - item2.id)
+
+// characters[0].name = 'Nome modificado'
+// console.log(orderOfCharactersById, characters)
 
 
 /*
@@ -39,7 +44,9 @@ const orderOfCharactersById = characters.map(character => character).sort((item1
 
 const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291]
 
-const numbersAscendingOrder = numbers.map(number => number).sort((item1, item2) => item1 - item2)
+const numbersAscendingOrder = numbers
+  .map(number => number)
+  .sort((item1, item2) => item1 - item2)
 
 // console.log(numbersAscendingOrder)
 
@@ -51,7 +58,8 @@ const numbersAscendingOrder = numbers.map(number => number).sort((item1, item2) 
 
 const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70]
 
-
+const numbergreaterthan50 = randomNumbers.find((number) => number > 50)
+// console.log(numbergreaterthan50)
 
 /*
   05
@@ -62,16 +70,36 @@ const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70]
 */
 
 const people = ['Cauã', 'Alfredo', 'Bruno']
+const invertOrderPeople = people
+  .map(people => people)
+  .sort()
+  .reverse()
+
+// console.log(invertOrderPeople)
 
 /*
   06
   
-  - Através do array abaixo, gere a mensagem "vinho cozido, tomate cozido, 
-    cebola cozida, cogumelo cozido";
+  ^- Através do array abaixo, gere a mensagem "vinho cozido, tomate cozido, cebola cozida, cogumelo cozido";
   - Exiba a string no console.
 */
 
 const ingredients = ['vinho', 'tomate', 'cebola', 'cogumelo']
+
+const cookedIngredients = ingredients.reduce((acc, item, index, array) =>  {
+  // testa através de uma Regex se o item termina em 'a', caso termine o ternário executa 'cozida' caso contrário 'cozido'
+  const correctWordGender =  /a$/.test(item) ? 'cozida' : 'cozido' 
+  //Verfica se é o último item do array
+  const isLastItem = index === array.length - 1
+  //Exibe o item com a palavra cozido(a) 
+  const ingredientMessage = acc + `${item} ${correctWordGender}` 
+  
+  //Se for não for o último item do array, retorna a msg com vírgula e epaço. Se for retorna somente a mensagem
+  return isLastItem ? ingredientMessage : `${ingredientMessage}, ` 
+
+}, '')
+
+// console.log(cookedIngredients) //vinho cozido, tomate cozido, cebola cozida, cogumelo cozido
 
 /*
   07
@@ -80,7 +108,7 @@ const ingredients = ['vinho', 'tomate', 'cebola', 'cogumelo']
     assistiram apenas os filmes da Disney.
 */
 
-const topBrazilmovies = [
+const topBrazilMovies = [
   { title: 'Vingadores: Ultimato', peopleAmount: 19686119, distributedBy: 'Disney' },
   { title: 'Titanic', peopleAmount: 17050000, distributedBy: 'Paramount / 20th Century' },
   { title: 'O Rei Leão', peopleAmount: 16267649, distributedBy: 'Disney' },
@@ -92,6 +120,12 @@ const topBrazilmovies = [
   { title: 'Os Vingadores', peopleAmount: 10968065, distributedBy: 'Disney' },
   { title: 'Dona Flor e Seus Dois Maridos', peopleAmount: 10735524, distributedBy: 'Embrafilme' }
 ]
+
+const disneyMovieTotalPeople = topBrazilMovies
+  .filter(({ distributedBy }) => distributedBy === 'Disney')
+  .reduce((acc, { peopleAmount }) => acc + peopleAmount , 0)
+
+// console.log(disneyMovieTotalPeople)
 
 /*
   08
@@ -113,12 +147,31 @@ const pets = [
   { name: 'Chico', age: 6, gender: 'Male', type: 'Dog' }
 ]
 
+const convertAgesPetsforHumans = pets
+  .filter(({ type }) => type === 'Dog')
+  .map(pet => ({ ...pet, age: pet.age * 7 }))
+
+  // console.log(convertAgesPetsforHumans)
+
 /*
   09
   
-  - Considerando o array topBrazilmovies, através do map ou do reduce, insira 
+  - Considerando o array topBrazilMovies, através do map ou do reduce, insira 
     os nomes dos filmes na ul do index.html.
 */
+const ul = document.querySelector('.list-group')
+
+const movieNames = topBrazilMovies
+  .reduce((acc, movie) => acc + `<li>${movie.title}</li>`, '')
+
+ul.innerHTML = movieNames
+
+// console.log(movieNames)
+
+// const movieNames = topBrazilMovies
+//   .map(movie => `<li>${movie.title}</li>`)
+//   .join('')
+
 
 /*
   10
