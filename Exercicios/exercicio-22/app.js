@@ -7,6 +7,8 @@
 */
 
 const names = ['Caio', 'André', 'Dário']
+const namesAlphabeticalOrder = names.map(name => name).sort()
+
 
 /*
   02
@@ -23,6 +25,10 @@ const characters = [
   { id: 04, name: 'Mufasa' }
 ]
 
+const orderOfCharactersById = characters.map(character => character).sort((item1, item2) => item1.id - item2.id)
+// console.log(orderOfCharactersById)
+
+
 /*
   03
 
@@ -33,6 +39,10 @@ const characters = [
 
 const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291]
 
+const numbersAscendingOrder = numbers.map(number => number).sort((item1, item2) => item1 - item2)
+
+// console.log(numbersAscendingOrder)
+
 /*
   04
 
@@ -40,6 +50,8 @@ const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291]
 */
 
 const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70]
+
+
 
 /*
   05

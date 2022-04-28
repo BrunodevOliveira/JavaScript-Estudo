@@ -5,21 +5,13 @@ const correctAnswers = ['C', 'B', 'D', 'A']
 
 let score = 0
 
-const getUsersAnswers = () => {
-    let userAnswers = []
-
-    correctAnswers.forEach((_, index) => {
-        const userAnswer = form[`inputQuestion${index + 1}`].value
-        userAnswers.push(userAnswer)
-    })
-    return userAnswers
-}
+const getUsersAnswers = () => correctAnswers.map((_, index) => form[`inputQuestion${index + 1}`].value)
 
 const calculateUserScore = (userAnswers) => {
     userAnswers.forEach((userAnswer, index) => {
         const isUserAnswerCorrect = userAnswer === correctAnswers[index]
         if (isUserAnswerCorrect) {
-            score += 25
+            score += 25 //Efeito colateral
         }
     })
 }

@@ -20,6 +20,8 @@ const saleProducts = products.map(product => {
 
   return product
 })
+// console.log(products)
+// console.log(saleProducts)
 
 const saleProductsForEach = []
 
@@ -29,5 +31,3 @@ products.forEach(product => {
   }
   return saleProductsForEach.push(product)
 })
-// console.log(products)
-// console.log(saleProducts)

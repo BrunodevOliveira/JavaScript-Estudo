@@ -7,6 +7,14 @@
 
 const randomNumbers = [10, 30, 15, 25, 50, 40, 5]
 
+const getOddNumbers = number => number % 2 === 1
+
+const oddNumbers = randomNumbers.filter(getOddNumbers)
+
+const isOddNumbers = oddNumbers.every(number => number % 2)
+
+// console.log(oddNumbers, isOddNumbers)
+
 /*
   02
 
@@ -14,6 +22,13 @@ const randomNumbers = [10, 30, 15, 25, 50, 40, 5]
 */
 
 const crazyNumbers = [937, 5, 395, 402, 501, 333, 502, 781, 3, 691]
+
+// Preciso utilizar o operador de pre incremento para que o resultado seja truty e pare de retornar apenas 0
+const countNumbersLessThan501 = (acc, number) => number < 501 ? ++acc : acc
+
+const numersbelow501 = crazyNumbers.reduce(countNumbersLessThan501, 0)
+
+// console.log(numersbelow501)
 
 /*
   03
@@ -23,6 +38,10 @@ const crazyNumbers = [937, 5, 395, 402, 501, 333, 502, 781, 3, 691]
 */
 
 const numbers = [5, 7, 3]
+
+const numbersSquared = numbers.map(number => number ** 2)
+
+// console.log(numbersSquared)
 
 /*
   04
@@ -49,6 +68,13 @@ const cart = [
   - Nome 3
 */
 
+const namesProducts = cart.map(item => `- ${item.name}`).join('\n')
+// console.log(namesProducts)
+
+const productList = cart.reduce((acc, { name }) => `${acc}- ${name} \n`, '')
+// console.log(productList)
+ 
+
 /*
   05
 
@@ -70,6 +96,10 @@ const tarantinoMovies = [
   { name: 'Kill Bill: Volume 1', release: 2003 }
 ]
 
+const moviesBefore2000 = tarantinoMovies.filter(({ release }) => release < 2000)
+
+// console.log(moviesBefore2000)
+
 /*
   06
 
@@ -86,6 +116,10 @@ const tvShows = [
   { name: 'House M.D.', releaseYear: 2004 },
   { name: 'Watchmen', releaseYear: 2019 }
 ]
+
+const nameTvShows = tvShows.map(({ name }) => name)
+
+// console.log(nameTvShows)
 
 /*
   07
