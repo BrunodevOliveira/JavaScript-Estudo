@@ -6,6 +6,7 @@
 */
 
 const myString = '    JS      '
+// console.log(myString.trim())
 
 /*
   02
@@ -23,6 +24,13 @@ const people = [
   { firstName: 'Eric', lastName: 'Silva', score: 82 }
 ]
 
+const peopleOrder = people
+  //map gera um novo obj para cada item, dessa forma se modificar a var people a peopleOrder n irá sofre alteração
+  .map(p => ({...p})) 
+  .sort((item1, item2) => item1.score - item2.score)
+
+// console.log(peopleOrder, people)
+ 
 /*
   03
 
@@ -35,13 +43,18 @@ const people = [
 
 const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
 
+const animals3letters = animals.filter(({ length }) => length === 3)
+
+// console.log(animals3letters)
+
 /*
   04
 
   - Baseado no array "animals", gere um novo array com a quantidade de letras do 
     nome de cada animal. Ex.: [6, 8, 2].
 */
-
+const lettersAnimals = animals.map(({ length }) => length)
+// console.log(lettersAnimals)
 
 
 /*
@@ -60,7 +73,11 @@ const friends = [
   { id: 5, name: 'Solange', nearMe: false }
 ]
 
+const friendsNearMe = friends
+  .filter(({ nearMe }) => nearMe)
+  .map(({ name }) => name)
 
+// console.log(friendsNearMe)
 
 /*
   06
@@ -70,6 +87,12 @@ const friends = [
 */
 
 const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81]
+
+const oddNumbersSum = numbers
+  .filter(number => number % 2)
+  .reduce((acc, item) => acc + item, 0)
+
+// console.log(oddNumbersSum)
 
 /*
   07
@@ -91,3 +114,9 @@ const data = [{
   country: 'Indonesia',
   population: 263991379
 }]
+
+const sumPopulationExcludingChina = data
+  .filter(({ country }) => country !== 'China')
+  .reduce((acc, { population }) => acc + population, 0)
+
+// console.log(sumPopulationExcludingChina)

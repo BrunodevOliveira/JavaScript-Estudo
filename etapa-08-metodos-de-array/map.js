@@ -13,8 +13,9 @@ const products = [
 
 const saleProducts = products.map(product => {
   if(product.price >= 30) {
-    //  product.price = product.price / 2 => Dessa forma irá modificar nos dois arrays (products e saleProducts) 
-      //^ o valor da propriedade pois se trata de um tipo de referência
+    //  product.price = product.price / 2 => Dessa forma irá modificar nos dois arrays (products e saleProducts)
+    //  pois estou referenciando o valor e não fzd uma copia dele
+      //^ para evitar que isso aconteça devo retornar um novo objeto
     return { name: product.name, price: product.price / 2 }
   }
 
