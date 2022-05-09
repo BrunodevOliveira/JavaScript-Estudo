@@ -20,7 +20,10 @@
     <ul class="todos-container list-group mx-auto text-light">
       <li class="list-group-item d-flex justify-content-between align-items-center" data-todo="Assistir Breaking Bad">
         <span>Assistir Breaking Bad</span>
-        <i class="far fa-trash-alt" data-trash="Assistir Breaking Bad"></i>
+        <div style="width: 20%;" class=" d-flex justify-content-between">
+          <i class="fas fa-edit" data-edit="Assistir Breaking Bad"></i>
+          <i class="far fa-trash-alt " data-trash="Assistir Breaking Bad"></i>
+        </div>
       </li>
 
       <li class="list-group-item d-flex justify-content-between align-items-center" data-todo="Planejar aulas">
@@ -35,11 +38,21 @@
     </ul>
 
     <form class="form-add-todo text-center my-4">
-      <label class="text-light">Adicionar to-do</label>
+      <label class="text-light msg-error">Adicionar to-do</label>
       <input class="form-control m-auto" type="text" name="add" autofocus />
     </form>
   </div>
 
+  <div class="popup-wrapper">
+    <div class="popup">
+      <div class="popup-content">
+        <input type="text" class="form-control m-auto" type="text" name="edit" placeholder="Editar to-do">
+
+        <button type="button" class="btn btn-info popup-link my-2" data-save >Salvar</button>
+        <button type="button" class="btn btn-danger popup-link" data-close>Cancelar</button>
+      </div>
+    </div>
+  </div>
   <script src="./app.js"></script>
 </body>
 </html>
