@@ -1,30 +1,34 @@
 /*
   01
 
-  - Implemente um código assíncrono entre os console.log() abaixo.
+  // - Implemente um código assíncrono entre os console.log() abaixo.
 */
 
-console.log('Linha 1')
-console.log('Linha 2')
-console.log('Linha 3')
-console.log('Linha 4')
+// console.log('Linha 1')
+// console.log('Linha 2')
+// console.log('Linha 3')
+// console.log('Linha 4')
 
+// setTimeout(() => console.log('Função de callback executada após 2 segundos'), 2000)
 
-
-console.log('Linha 5')
-console.log('Linha 6')
-console.log('Linha 7')
-console.log('Linha 8')
+// console.log('Linha 5')
+// console.log('Linha 6')
+// console.log('Linha 7')
+// console.log('Linha 8')
 
 /*
   02
 
   - Descomente o código abaixo e crie a função que fará a string dentro da 
-    "logGreeting" ser exibida no console.
+    // "logGreeting" ser exibida no console.
 */
 
 function logGreeting (name) {
-  console.log(`olá, ${name}`)
+  // console.log(`olá, ${name}`)
+}
+
+const x = callback => {
+  callback('Bruno')
 }
 
 // x(logGreeting)
@@ -36,9 +40,10 @@ function logGreeting (name) {
 */
 
 const numbers = [3, 4, 10, 20]
-const lesserThanFive = numbers.filter(num => num < 5)
+const numbersLassThan5 = num => num < 5
+const lesserThanFive = numbers.filter(numbersLassThan5)
 
-console.log(lesserThanFive)
+// console.log(lesserThanFive)
 
 /*
   04
@@ -47,13 +52,14 @@ console.log(lesserThanFive)
 */
 
 const prices = [12, 19, 7, 209]
-let totalPrice = 0
+const getTtotalPrice = (item, acc) => acc + item
+const totalPrice = prices.reduce(getTtotalPrice, 0)
 
-for (let i = 0; i < prices.length; i++) {
-  totalPrice += prices[i]
-}
+// for (let i = 0; i < prices.length; i++) {
+//   totalPrice += prices[i]
+// }
 
-console.log(`Preço total: ${totalPrice}`)
+// console.log(`Preço total: ${totalPrice}`)
 
 /*
   05
@@ -63,6 +69,9 @@ console.log(`Preço total: ${totalPrice}`)
 */
 
 let car = { color: 'amarelo' }
+let secondCar = car
+secondCar.color = 'azul'
+// console.log(car.color, secondCar.color)
 
 /*
   06
@@ -73,6 +82,11 @@ let car = { color: 'amarelo' }
   - Se todos os argumentos forem passados, retorne a string 'A função foi 
     invocada com 3 argumentos'.
 */
+const book = (name, pages, publishi) => {
+  const isSomeParameterUndefined = [name, pages, publishi].includes(undefined)
+  return isSomeParameterUndefined ? 'A função deve ser invocada com 3 argumentos' : 'A função foi invocada com 3 argumentos'
+}
+// console.log(book('bruno', 5, 'lelivros'))
 
 /*
   07
@@ -100,3 +114,36 @@ let booksBox = {
   spaces: 5,
   booksIn: 0
 }
+
+const getPluralOrSingular = (quantity, singular, plural) => quantity === 1 ? singular : plural
+
+const getAvaliabeSpacesMessage = (spaces, booksIn) => {
+  const avaliableSpaces = spaces - booksIn
+  const firtPluralOrSingular = getPluralOrSingular(avaliableSpaces, 'cabe',  'cabem')
+  const pluralOrSingular = getPluralOrSingular(avaliableSpaces, 'livro', 'livros')
+  return `Só ${firtPluralOrSingular} mais ${avaliableSpaces} ${pluralOrSingular}`
+}
+
+booksBox.addBooks = booksQuantity => {
+  const  { spaces } = booksBox
+  const isBoxFilled = booksBox.booksIn === spaces
+  
+  if(isBoxFilled) {
+    return `A caixa já está cheia`
+  }
+
+  const boxSpacesAreNotEnough = booksBox.booksIn + booksQuantity > spaces
+
+  if(boxSpacesAreNotEnough) {
+    return getAvaliabeSpacesMessage(spaces, booksBox.booksIn)
+  }
+
+  booksBox.booksIn += booksQuantity
+  const bookPluralOrSinguçar = getPluralOrSingular(booksBox.booksIn, 'livro', 'livros')
+  return `Já há ${booksBox.booksIn} ${bookPluralOrSinguçar} na caixa`
+}
+// console.log(booksBox.addBooks(3))
+// console.log(booksBox.addBooks(3))
+// console.log(booksBox.addBooks(2))
+// console.log(booksBox.addBooks(1))
+// console.log(booksBox)
