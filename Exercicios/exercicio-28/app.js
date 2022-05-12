@@ -15,6 +15,23 @@
     obter os dados do pokémon';
   - Teste também a verificação do item acima.
 */
+const request = new XMLHttpRequest()
+
+request.addEventListener('readystatechange', () => {
+  const isRequestOk = request.readyState === 4 && request.status === 200
+  const isRequestNotOk = request.readyState === 4
+
+  if(isRequestOk) {
+    // console.log(request.responseText)
+    // return
+  }
+  if(isRequestNotOk) {
+    // console.log('Não foi possível obter os dados do pokémon')
+  }
+})
+
+request.open('GET', 'https://pokeapi.co/api/v2/pokemon/pikachu')
+request.send()
 
 /*
   02
@@ -30,7 +47,16 @@
     - Se você está andando (boolean iniciado em false);
     - Quantos metros você caminhou (number iniciado em 0).
 */
-
+let person = {
+  name:'Bruno',
+  Lastname: 'Oliveira',
+  sex: 'Masculino',
+  age: 29,
+  height: 1.66,
+  weight: 88,
+  walking: false,
+  metersWalked: 0
+}
 /*
   03
 
@@ -39,6 +65,13 @@
   - A cada vez que o método é invocado, 1 deve ser somado à idade atual;
   - Após criar o método, adicione 5 anos à idade do objeto.
 */
+person.addAge = (year = 1) => person.age += year
+// person.addAge(5)
+for(let i = 0; i < 5; i++) {
+  person.addAge()
+}
+// console.log(person.age)
+
 
 /*
   04
@@ -50,6 +83,14 @@
   - Após criar o método, faça a pessoa caminhar alguns metros, invocando o 
     método 4x, com diferentes metragens passadas por parâmetro.
 */
+person.addMetersWalked = (meters = 1) => {
+  person.metersWalked += meters
+  person.walking = true 
+}
+const meters = [7, 13, 15, 20]
+meters.forEach(meter => person.addMetersWalked(meter))
+
+// console.log(person.metersWalked, person.walking)
 
 /*
   05
@@ -67,6 +108,17 @@
     - Se a quantidade de metros caminhados for 1, substitua "metros" por 
       "metro", no singular.
 */
+person.salutation = () => {
+  const { sex, age, metersWalked, name, Lastname, weight, height } = person
+  const correctGender = sex === 'Masculino' ? 'o' : 'a'
+  const agePluralOrSingular = age === 1 ? 'ano' : 'anos'
+  const meters = metersWalked > 1 ? 'metros' : 'metro'
+  const fullName = name + ' '+ Lastname
+
+  return `Oi. Eu sou ${correctGender} ${fullName}, tenho ${age} ${agePluralOrSingular}, ${height} metros de altura, peso ${weight} quilos e, só hoje, eu já caminhei ${metersWalked} ${meters}.`
+}
+
+// console.log(person.salutation())
 
 /*
   06
@@ -79,6 +131,17 @@
     valor truthy;
     - Faça isso até que 7 valores truthy sejam passados.
 */
+const isTruthy = (value) => Boolean(value)
+
+const falsyValues = ['', null, undefined, NaN, false, 0 ]
+const truthyValues = ['false', {}, [], () => {}, true, '0', -1]
+
+const logFalsyValues = falsyValue => console.log(isTruthy(falsyValue))
+const logTruthyValues = truthyValue => console.log(isTruthy(truthyValue))
+
+falsyValues.forEach(logFalsyValues)
+
+truthyValues.forEach(logTruthyValues)
 
 /*
   07
@@ -98,3 +161,26 @@
 
   Dica: propriedades de objetos podem ser declaradas como strings.
 */
+const getBook = nameBook => {
+  const books = {
+    'eu sou a lenda': {
+      pages: 200,
+      author: 'Richard Matheson',
+      publisher: 'leia'
+    },
+    'Metamorfose': {
+      pages: 150,
+      author: 'Kafka',
+      publisher: 'Saraiva'
+    },
+    'o processo': {
+      pages: 170,
+      author: 'Kafka',
+      publisher: 'Alta books'
+    }
+  }
+
+  //~ Curto circuito => Se a expressão a esquerda do || resulta em um valor truthy ela será retornada, caso seja um valor falsy retorna o valor a direita do ||
+  return books[nameBook] || books
+}
+console.log(getBook('eu sou a lenda'))
