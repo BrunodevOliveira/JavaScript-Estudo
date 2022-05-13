@@ -201,8 +201,11 @@ const people = [
   { id: 73, name: 'Aline', age: 19, federativeUnit: 'Brasília' }
 ]
 const agesFrequency = people.reduce((acc, person) => {
-  acc[person.age] = 1 + acc[person.age] || 1
+  // Possibilita inserir um expressão que vai ser computada como nome da propriedade em um objeto
+  // Com essa atribuição, se a propriedade equivalente a idade da pessoa não existe no objeto, ela será criada e 1 é atribuido a ela(valor a direita do curto circuito). Caso a propriedade ja exista, irá receber o valor atual mais 1(valor a esquerda do cuto cir)
+  acc[person.age] = acc[person.age] + 1 || 1
   return acc
 }, {})
 
-console.log(agesFrequency)
+// console.log(agesFrequency)
+
