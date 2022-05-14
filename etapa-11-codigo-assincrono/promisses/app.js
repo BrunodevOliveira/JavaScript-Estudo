@@ -33,4 +33,3 @@ getPokemon('https://pokeapi.co/api/v2/pokemon/pikachu')
   .then(console.log) //Exibe os dados do squirtle
   .catch(error => console.log(error)) 
   //Não preciso escrever um para cada then que implemento se um erro for detectado para o encadeamento dos then
-
