@@ -8,6 +8,19 @@
     do GitHub.
 */
 
+const fetchGitHubUser = async username => {
+  const user = await fetch(`https://api.github.com/users/${username}`)
+  return user.json()
+}
+
+const logGitHubUser = async username => {
+  const userData = await fetchGitHubUser(username)
+  console.log(userData)
+}
+
+// logGitHubUser('brunodevoliveira')
+
+
 /*
   02
 
@@ -17,6 +30,10 @@
 */
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const getDivisibleBy2Or3 = numbers => 
+  numbers.filter(number => number % 3 === 0 || number % 2 === 0)
+
+// console.log(getDivisibleBy2Or3(numbers)) 
 
 /*
   03
@@ -31,6 +48,12 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     - Natália => "PNaPtáPlia";
     - Rafaela => "PRaPfaPePla".
 */
+const name = ['bru', 'no']
+
+const getNameInPLanguage =  name => 
+  name.reduce((acc, syllable) => `${acc}P${syllable}`, '')
+
+// console.log(getNameInPLanguage(name))
 
 /*
   04
@@ -47,6 +70,15 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   Dica: pesquise pelo método split.
 */
 
+const firstName = 'bruno'
+const logSplitName = firstName => firstName
+  .split('')
+  .forEach((letter, index) =>
+    console.log(`"${letter}" é a ${index + 1}ª letra do meu nome`))
+
+
+// logSplitName(firstName)
+
 /*
   05
 
@@ -59,6 +91,14 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   Dica: pesquise pelo método Object.keys().
 */
+const person = {
+  name: 'Bruno',
+  lastname: 'Oliveira',
+  age: 29
+}
+
+const dateUserArr = Object.keys(person)
+// console.log(dateUserArr)
 
 /*
   06
@@ -74,6 +114,14 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 */
 
 const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
+
+const showNumberOfOccurrences = (arr, item) => arr.filter(number => number === item).length
+// console.log(showNumberOfOccurrences(scores, 85))
+
+const getOccurences = (array, value) => 
+  array.reduce((acc, item) => value === item ? acc + 1 : acc, 0)
+
+// console.log(getOccurences(scores, 100)) 
 
 /*
   07
@@ -98,3 +146,25 @@ const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
   Dica: lembre-se que o método filter inclui o item em questão no novo array 
   que está sendo gerado **apenas** se a função retorna um valor truthy.
 */
+
+const filter = (arr, func) => {
+  let newArray = []
+
+  const filterItem = (item, index) => {
+    const itemShouldBeAdded = func(item, index,arr)
+
+    if(itemShouldBeAdded) {
+      newArray.push(item)
+    }
+  }
+
+  arr.forEach(filterItem)
+
+  return newArray
+}
+
+console.log(filter([1,3,2], item => item))
+console.log(filter([0,3,2], item => item))
+console.log(filter([1,3,2], item => item < 2 ))
+console.log(filter([1,2,3,5], (item, index) => item === index + 1))
+console.log(filter([1, 2, 3, 2, 1, 5], (item, index, array) => index === array.indexOf(item)))

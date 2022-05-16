@@ -9,7 +9,7 @@ const getUsers = async () => {
 
 const logUsers = async () => {
   const users = await getUsers()
-  console.log(users) 
+  console.log(users)
 }
 
 console.log(1)
