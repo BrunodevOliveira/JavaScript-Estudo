@@ -23,30 +23,58 @@
 //API Key => fV0AyfuEOZ9suvctvKv4utcGTJNJy2a2
 
 const form = document.querySelector('form')
-const gifs = document.querySelector('.out')
+const GIFScontainer = document.querySelector('div')
 
-const showGif =  ({ data: gif }) => {
+const APIKey = 'fV0AyfuEOZ9suvctvKv4utcGTJNJy2a2'
+
+const getGIPHYApiUrl = GIFName =>`https://api.giphy.com/v1/gifs/search?api_key=${APIKey}&limit=1&q=${GIFName}`
+
+// Gerar o a tag img com o gif
+const generateGIFImg = (downsizedGIFUrl, GIFData) => {
   const img = document.createElement('img')
-  img.setAttribute('src', `${gif[0].images.downsized_medium.url}`)
 
-  gifs.prepend(img)
+  img.setAttribute('src', downsizedGIFUrl)
+  img.setAttribute('alt', GIFData.data[0].title)
+
+  return img
 }
 
-const getGif = async (value) => {
-  const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=fV0AyfuEOZ9suvctvKv4utcGTJNJy2a2&limit=1&q=${value}`)
+// Faz o request para obter o GIF
+const fetchGIF = async (inputValue) => {
+  try {
+    const GIPHYApiUrl =  getGIPHYApiUrl(inputValue)
+    const response = await fetch(GIPHYApiUrl)
+  
+    if(!response.ok) {
+      throw Error('Não foi possível obter os dados')
+    }
+    return response.json()
 
-  showGif(await response.json()) 
+  } catch(error) {
+    alert(`Error: ${error.message}`)
+  }
+
 }
 
+// Insere o GIF no DOM
+const insertGIFInToDOM = async (inputValue) => {
+  const GIFData = await fetchGIF(inputValue)
+
+  if(GIFData) {
+    const downsizedGIFUrl = GIFData.data[0].images.downsized.url
+    const img = generateGIFImg(downsizedGIFUrl, GIFData)
+  
+    GIFScontainer.insertAdjacentElement('afterbegin', img)
+  
+    form.reset()
+  }
+
+}
 
 form.addEventListener('submit', event => {
   event.preventDefault()
-  const searchValue = event.target.search.value
-  
-  if(searchValue){
-    getGif(searchValue)
-    event.target.reset()
-    return
-  }
-  alert('digite algo')
+
+  const inputValue = event.target.search.value
+
+  insertGIFInToDOM(inputValue)
 })

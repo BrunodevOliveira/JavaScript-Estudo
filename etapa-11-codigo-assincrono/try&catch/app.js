@@ -23,6 +23,7 @@ const getUsers = async () => {
        * Lança um objeto de erro.
        *^ - Todo código que vier a baixo da linha do lançamento de erro vai ser ignorado, 
        *    o obj de erro que o throw lançou é recebido como parâmetro do catch e o bloco do catch é executado.
+       *~ - A única semelhança con o "return" é que o código abaixo é ignorado, THROW NÃO RETORNA NADA 
        * Sempre que lançamos um erro no código, precisamos ter um catch para tratar esse erro
       */
     }
