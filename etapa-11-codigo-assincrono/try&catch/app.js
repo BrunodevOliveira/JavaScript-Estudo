@@ -17,8 +17,6 @@ const getUsers = async () => {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/users')
 
-    console.log(response.then(r => r.json()))
-
     if(!response.ok) {
       throw new Error('Não foi possível obter os dados') 
       /**
@@ -26,7 +24,7 @@ const getUsers = async () => {
        *^ - Todo código que vier a baixo da linha do lançamento de erro vai ser ignorado, 
        *    o obj de erro que o throw lançou é recebido como parâmetro do catch e o bloco do catch é executado.
        * Sempre que lançamos um erro no código, precisamos ter um catch para tratar esse erro
-       */
+      */
     }
 
     return response.json()
