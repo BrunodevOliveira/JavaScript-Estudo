@@ -16,6 +16,9 @@
     - O 2º item é o 1º item do array recebido por argumento;
   - Implemente a função da forma mais concisa que você conseguir.
 */
+const swap = ([first, , third]) => [third, first]
+
+// swap([953, 299, 384])
 
 /*
   03
@@ -30,6 +33,9 @@ const topics = [
   { id: 3, name: 'Carreiras'}
 ]
 
+const [, , {name}] = topics
+// console.log(name)
+
 /*
   04
 
@@ -39,6 +45,19 @@ const topics = [
 */
 
 const colors = ['#FF00FF', ['#FF0D0D', '#0AFA00', '#011EFA'], '#7BF0FF']
+
+const [, [red, green, blue], ] = colors
+console.log(red, green, blue ) //#FF0D0D #0AFA00 #011EFA
+
+const obj = {
+  prop1: {
+    innerProp1: 1
+  }
+}
+
+const { prop1: { innerProp1: novoNome } } = obj
+
+console.log(novoNome) //1
 
 /*
   05
@@ -54,8 +73,28 @@ const colors = ['#FF00FF', ['#FF0D0D', '#0AFA00', '#011EFA'], '#7BF0FF']
     - Faça a função retornar "Olá, meu nome é [NOME]!".
 */
 
-// console.log(greet({ name: 'Roger' }, 'name'))
-// console.log(greet({}, 'personName'))
+//                               computed property names                                //
+/** 
+ * ^ O Js permite usar o resultado da expressão ente colchetes [] como o nome da propriedade de um objeto.
+ * &  Dessa forma temos uma forma dinâmica de acessar nomes de propriedades
+ * ! O valor que essa propriedade dinâmica está recebendo da var obj fica armazenado na var name, que possui um valor default "desconhecido"
+*/
+
+const greet = (obj, dynamicName) => { 
+  //O valor da propriedade do obj está sendo atribuido a var name
+  const { [dynamicName]: name = 'desconhecido' } = obj
+  return `Olá, meu nome é ${name}!`
+}
+
+console.log(greet({ prop1: 'Roger' }, 'prop1')) //Olá, meu nome é Roger!
+console.log(greet({ name: 'Bruno' }, 'name')) //Olá, meu nome é Bruno!
+
+/**
+ * ~ a propriedade que usamos de forma diâmica possui um nome != da propriedade que estamos desconstruindo
+ * ~ nesse caso, para que não retorne undefined atribuímos um valor default "desconhecido" 
+*/
+console.log(greet({}, 'personName')) //Olá, meu nome é desconhecido!
+console.log(greet({prop1: 'Roger'}, 'personName')) //Olá, meu nome é desconhecido!
 
 /*
   06
