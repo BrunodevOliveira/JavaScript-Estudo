@@ -5,6 +5,23 @@
     e retorna o valor da key parseado para objeto javascript.
 */
 
+const person = {
+  name: 'bruno',
+  lastname: 'Oliveira',
+  age: 29
+}
+
+localStorage.setItem('person', JSON.stringify(person))
+
+const JSONFromLocalStorage = localStorage.getItem('person')
+
+const getObjectFromLocalStorage = keyName => {
+  const KeyValue = localStorage.getItem(keyName)
+  return JSON.parse(KeyValue)
+}
+
+// console.log(getObjectFromLocalStorage('person'))
+
 /*
   02
 
@@ -21,7 +38,7 @@
 const input = document.querySelector('[data-js="input"]')
 
 input.addEventListener('input', event => {
-  console.log(event.target.value)
+  console.log(event.target.valueAsNumber)
 })
 
 /*
@@ -39,28 +56,21 @@ input.addEventListener('input', event => {
     retornar 60 e a segunda invocação, 10.
 */
 
-function add100 (num) {
-  return num + 100
-}
+const add100 = num =>  num + 100
 
-function divByFive (num) {
-  return num / 5
-}
+const divByFive = num =>  num / 5
 
-function multiplyByThree (num) {
-  return num * 3
-}
+const multiplyByThree = num =>  num * 3
 
-function multiplyFive (num) {
-  return num * 5
-}
+const multiplyFive = num =>  num * 5
 
-function addTen (num) {
-  return num + 10
-}
+const addTen = num =>  num + 10
+
+const combineOperations = (num, functions) => functions.reduce((acc, func) => func(acc), num)
 
 // console.log(combineOperations(0, [add100, divByFive, multiplyByThree]))
 // console.log(combineOperations(0, [divByFive, multiplyFive, addTen]))
+
 
 /*
   04
@@ -101,9 +111,22 @@ const searchAlbum = {
   genre: 'Rock'
 }
 
+// Mesmo esses obj tendo exatamente os mesmos valores que o obj incluso no array albums, na memória eles são dois obj diferentes. O includes retorna false pq ele está comparando dois obj criados em espaços diferentes na memória
 if (albums.includes(searchAlbum)) {
   console.log(`${JSON.stringify(searchAlbum)} existe no array albums.`)
 }
+
+if (albums.some(album => album.id === searchAlbum.id)) {
+  console.log(`${JSON.stringify(searchAlbum)} existe no array albums.`)
+}
+
+const searchAlbumExistsInArray = album => {
+  const { id } = album
+  const response =  albums.find(album => album.id === id)
+  console.log(`${JSON.stringify(response)} existe no array albums.`)
+}
+
+// searchAlbumExistsInArray(searchAlbum)
 
 /*
   05
@@ -112,6 +135,7 @@ if (albums.includes(searchAlbum)) {
 */
 
 const obj = {
+  prop0: () => {},
   prop1: 'a',
   prop2: 'b',
   prop3: null,
@@ -122,6 +146,30 @@ const obj = {
   prop8: { a: 'x', b: 'y' },
 }
 
+/**
+ * SPREAD OPERATOR => espalha as propriedades do obj em um novo
+ * Não faz a cópia de obj aninhados, o spread operator faz apenas uma cópia rasa
+ * obj aninhados são referenciados pois são do tipo referência
+ * Passos para clonar obj que possuem obj aninhados:
+    * 1- Crio um novo obj que contem todas as propriedades do obj original
+    * 2- Sobrescrevo a propriedade que contem um obj aninhado e atribuo para ela um novo obj
+    * 3- espalho dentro desse novo obj as propriedades do obj aninhado
+*/
+const copyObj = { 
+  ...obj,
+  prop6: [
+    obj.prop6[0],
+    {...obj.prop6[1]}
+  ],
+  prop8: {
+    ...obj.prop8
+  } 
+}
+
+// console.log(copyObj === obj) //false
+// console.log(copyObj.prop8 === obj.prop8) //false
+// console.log(copyObj.prop6 === obj.prop6) 
+
 /*
   06
 
@@ -130,8 +178,19 @@ const obj = {
     atributos que o elemento deve conter;
   - A quantidade de atributos que o elemento irá conter pode variar.
 
-  Dica: pesquise por Object.entries.
+  Dica: pesquise por Object.entries
 */
+const createElementHTML = (elementName, ObjectAttributes) => {
+  const element = document.createElement(elementName)
+  const arrAttributes = Object.entries(ObjectAttributes)
+  
+  arrAttributes.forEach(([key, value]) => element.setAttribute(key, value))
+
+  return element
+}
+// console.log(createElementHTML('input', {placeholder: 'ola', type: 'number', autofocus:'' }))
+// console.log(createElementHTML('div', {class: 'teste', id: 'unico'}))
+
 
 /*
   07
