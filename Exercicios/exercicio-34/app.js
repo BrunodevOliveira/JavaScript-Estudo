@@ -11,6 +11,22 @@
   - Após implementar a função, implemente outra versão da função. Essa 2ª 
     versão deve fazer o mesmo que a função anterior faz, mas de forma diferente.
 */
+const reverse = string => {
+  let valueReverse =''
+  for(let i = string.length - 1; i >= 0 ; i--) {
+   valueReverse += string[i]    
+  }
+  return valueReverse
+}
+
+const reverseString = string => string.split('').reverse().join("")
+
+const reverseString1 = string => string.split('').reduce((acc, letter) => letter + acc, '')
+
+// console.log(reverseString('abc'))
+// console.log(reverseString('123'))
+// console.log(reverseString1('987'))
+
 
 /*
   02
@@ -27,7 +43,7 @@ numbers.forEach(number => {
   }
 })
 
-console.log(foundNumber)
+const checkIfNumberExists = number => numbers.includes(number)
 
 /*
   03

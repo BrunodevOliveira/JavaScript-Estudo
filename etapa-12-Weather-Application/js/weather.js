@@ -28,4 +28,3 @@ const fetchData = async endPoint => {
 const getCityData = (cityName) => fetchData(getCityUrl(cityName))
 
 const getCityWeather =  cityKey =>  fetchData(getWeatherUrl(cityKey))
-  
