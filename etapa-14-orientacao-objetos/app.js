@@ -7,7 +7,7 @@ class User {
 
   login() {
     console.log(`${this.name} logou na aplicação`)
-    return this
+    return this //retorna o objeto que a classe está criando
   }
 
   logout() {
@@ -22,7 +22,7 @@ class User {
 
 const user = new User('Bruno', 'brunodevoliveira@gmail.com') 
 const user2 = new User('Barbara', 'bm.ufrj@gmail.com')
-
-user.login().addPoint()
+j
+user.login().addPoint() //^como login() retorna o objeto que a classe cria, posso encadear addPoint nele 
 
 console.log(user) 
