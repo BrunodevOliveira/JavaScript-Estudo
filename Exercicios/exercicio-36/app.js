@@ -10,9 +10,11 @@
 
 const numbers = [50, 100, 50]
 
+// const sum = arr => arr.reduce((acc, item) => item + acc, 0)
+
 const sum = (x, y, z) => x + y + z
 
-console.log(sum(numbers))
+console.log(sum(...numbers))
 
 /*
   02
@@ -22,6 +24,9 @@ console.log(sum(numbers))
   - Utilizando (também) o spread operator, exiba no console o seu nome com 
     apenas a primeira letra maiúscula.
 */
+const name = 'bruno'
+const capitalizedName = [name[0].toUpperCase(), ...name.slice(1)].join('')
+// console.log(capitalizedName)
 
 /*
   03
@@ -36,9 +41,10 @@ const randomNumber = Math.round(Math.random() * 100)
 
 const obj = {
   a: 1,
-  b: 2
+  b: 2,
+  //o ternário é executado primeiro e, como ele retorna um valor e esse valor é um objeto, utilizo o spread para espalhar esse valor na var obj
+  ...randomNumber > 50 ? { c: 3 } : { d: 4 } , 
 }
-
 console.log(obj)
 
 /*
@@ -48,22 +54,20 @@ console.log(obj)
     criado permaneça intacto.
 */
 
-const h = w => {
-  w.d = 3
-}
+const third = obj => ({
+  ...obj,
+  d: 3
+})
 
-const q = f => {
-  h(f)
-}
+const second = obj => third(obj)
 
-const i = b => {
-  q(b)
-}
+const first = obj => second(obj)
 
-const v = { k: 't' }
+const object = { k: 't' }
+const object2 = first(object)
 
-i(v)
-console.log(v)
+first(object)
+console.log(object, object2)
 
 /*
   05
@@ -95,6 +99,12 @@ const timestamps = [
     value: 17
   }
 ]
+const values = timestamps.reduce((acc, { date, value }) => {
+  acc [date] = value
+  return acc
+}, {})
+
+// console.log(values)
 
 /*
   06
@@ -119,6 +129,26 @@ const timestamps = [
 let accumulator = 0
 const oddNumbers = [51, 97, 65, 23]
 
+const forEach = (arr, func) => {
+  for(let index = 0; index < arr.length; index ++) {
+    const item = arr[index]
+    func(item, index, arr)
+  }
+}
+
+const logMessage = (item, index, arr) => {
+  const message = 
+  ` "${item}" é o ${index + 1}º item do array [${arr.join(', ')}]`
+  console.log(message)
+}
+
+const sumArrayItems = item => {
+  accumulator += item
+}
+
+// forEach(oddNumbers, logMessage)
+// forEach(oddNumbers, sumArrayItems)
+// console.log(accumulator)
 /*
   07
 
@@ -147,3 +177,31 @@ const oddNumbers = [51, 97, 65, 23]
     3 No passo 3.4, se o slide exibido atualmente não corresponder ao index do 
       1º slide, o slide anterior deve ser exibido.
 */
+
+const nextButton = document.querySelector('[data-js="carousel__button--next"]')
+const pervButton = document.querySelector('[data-js="carousel__button--prev"]')
+const slides = document.querySelectorAll('[data-js="carousel__item"]')
+
+const lastSlideIndex = slides.length - 1 
+let currentSlideIndex = 0
+
+const manipulateSlidesClasses = (correctSlideIndex) => {
+  slides.forEach(slide => slide.classList.remove('carousel__item--visible'))
+  slides[correctSlideIndex].classList.add('carousel__item--visible')
+}
+
+nextButton.addEventListener('click', () => {
+  const correctSlideIndex = currentSlideIndex === lastSlideIndex
+    ? currentSlideIndex = 0 
+    : ++currentSlideIndex
+
+  manipulateSlidesClasses(correctSlideIndex)
+})
+
+pervButton.addEventListener('click', () => {
+  const correctSlideIndex = currentSlideIndex === 0 
+    ? currentSlideIndex = lastSlideIndex
+    : --currentSlideIndex
+
+  manipulateSlidesClasses(correctSlideIndex)
+})
