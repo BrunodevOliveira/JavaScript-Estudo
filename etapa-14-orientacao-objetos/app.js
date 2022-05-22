@@ -22,7 +22,7 @@ class User {
 
 const user = new User('Bruno', 'brunodevoliveira@gmail.com') 
 const user2 = new User('Barbara', 'bm.ufrj@gmail.com')
-j
+
 user.login().addPoint() //^como login() retorna o objeto que a classe cria, posso encadear addPoint nele 
 
 console.log(user) 
