@@ -4,6 +4,19 @@
   - Descomente a let abaixo, descubra o que o código está tentando fazer e 
     faça-o funcionar.
 */
+// const convertBinaryInDecimal = (acc, item, index) => {
+//   let transformItemInNumber = Number(item)
+//   let x = transformItemInNumber === 1 ? 2**index : 0
+//   return acc + x
+// }
+
+// const bin = prompt(`Digite um número binário`)
+// const dec = bin
+// .split('')
+// .reverse()
+// .reduce(convertBinaryInDecimal, 0)
+
+// console.log(dec)
 
 class Animal {
   constructor (name) {
@@ -12,13 +25,11 @@ class Animal {
 }
 
 class Rabbit extends Animal {
-  constructor (name) {
-    this.name = name
-    this.created = new Date()
-  }
+  created = new Date()
 }
 
-// let rabbit = new Rabbit('White Rabbit')
+let rabbit = new Rabbit('White Rabbit')
+// console.log(rabbit)
 
 /*
   02
@@ -26,12 +37,38 @@ class Rabbit extends Animal {
   - Descomente o código abaixo e implemente o que está faltando para que ele 
     funcione.
 */
+class Counter {
 
-// const counter = new Counter()
+  #count = 0
+  
 
-// counter.getValue()
-// counter.increment()
-// counter.getValue()
+  get value(){ //A palavra chave get permite obter o valor da propriedade usando a sintaxe de propriedade
+    return this.#count
+  }
+
+  increment(){
+    this.#count++
+  }
+
+  set newValue (aNumber) { //A palavra chave set permite setar um valor utilizando a sintaxe de propriedade
+    this.#count = aNumber
+  }
+}
+
+
+const counter = new Counter()
+
+//Tentando modificar e acessar valores de propriedades privadas:
+// counter.#count = 'oi'
+// console.log(counter.#count)
+// counter.newValue = 7 //seta 7 - modificando o valor da propriedade #count
+// console.log(counter.value) //exibe o valor da propriedade #count
+
+// counter.increment() //incrementa para 1
+
+
+// console.log(counter.value) // exibe 7
+
 
 /*
   03
@@ -49,6 +86,10 @@ const values = [
   NaN,
   () => {}
 ]
+// Posso referenciar o Contrutor Bolean como referencia do filter para que ele seja a função de callback
+const truthyValues = values.filter(Boolean)
+
+// console.log(truthyValues)
 
 /*
   04
@@ -59,65 +100,68 @@ const values = [
   - Descomente o código e conserte os erros que estão impedindo que ele 
     funcione.
 */
+const formatTimeUnits = units => 
+  units.map(unit => unit < 10 ? `0${unit}` : unit)
 
-// class Clock {
-//   constructor ({ template }) {
-//     this.template = template
-//   }
+const getTime = () => {
+  const date = new Date()
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
+  const seconds = date.getSeconds()
 
-//   render () {
-//     const date = new Date()
-//     let hours = date.getHours()
-//     let minutes = date.getMonth()
-//     let seconds = date.getSeconds()
+  return [hours, minutes, seconds]
+}
 
-//     if (hours < 10) {
-//       hours = `0${hours}`
-//     }
+const getFormattedTime = template => {
+  const [hours, minutes, seconds] = getTime()
+  
+  const formattedTime = formatTimeUnits([hours, minutes, seconds])
+  
+  return template
+    .split(':')
+    .map((_, index) => formattedTime[index])
+    .join(':')
+}
+class Clock {
+  constructor ({ template }) {
+    this.template = template
+  }
 
-//     if (minutes < 10) {
-//       minutes = `0${minutes}`
-//     }
+  render () {
+    const formattedTime = getFormattedTime(this.template)
+    console.log(formattedTime)
+  }
 
-//     if (seconds < 10) {
-//       seconds = `0${seconds}`
-//     }
+  start () {
+    const oneSecond = 1000
+    this.render()
+    this.timer = setInterval(() => this.render(), oneSecond)
+  }
 
-//     const formattedTime = this.template
-//       .replace('h', hours)
-//       .replace('m', minutes)
-//       .replace('s', seconds)
+  stop () {
+    clearInterval(this.timer)
+  }
+}
 
-//     console.log(formattedTime)
-//   }
-
-//   start () {
-//     this.render()
-//     this.timer = setInterval(() => this.render(), 1000)
-//   }
-
-//   stop () {
-//     clearInterval(this.timer)
-//   }
-// }
-
-// class ExtendedClock extends Clock {
-//   constructor ({ options }) {
-//     super(options)
+class ExtendedClock extends Clock {
+  constructor (options) {
+    super(options)
     
-//     let { precision = 1000 } = options
-//     this.precision = precision
-//   }
+    const { precision = 1000 } = options
+    this.precision = precision
+  }
 
-//   start () {
-//     this.render()
-//     this.timer = setInterval(() => this.render(), this.precision)
-//   }
-// }
+  //Esse método sobrescreve o método start da classe Pai declarado em Clock
+  start () {
+    this.render()
+    this.timer = setInterval(() => this.render(), this.precision)
+  }
+}
 
-// const clock = ExtendedClock({ template: 'h:m:s', precision: 1000 })
+const clock = new ExtendedClock({ template: 'h:m:s', precision: 1000 })
 
-// clock.start()
+clock.start()
+clock.stop()
 
 /*
   05
@@ -127,7 +171,16 @@ const values = [
     caracteres que o textarea contém.
 */
 
+const paragraph = document.querySelector('[data-js="paragraph"]')
+const textarea = document.querySelector('[data-js="textarea"]')
 
+const showCounterParagraph =  event => {
+  const counterParagraph = event.target.value.length
+  const maxLength = event.target.getAttribute('maxlength')
+  paragraph.textContent = `${counterParagraph}/${maxLength}`
+}
+
+textarea.addEventListener('input',showCounterParagraph)
 
 /*
   06
@@ -155,3 +208,29 @@ const values = [
     vídeo de correção dos exercícios um link para a aula de introdução ao 
     reduce e um link para a documentação do método no MDN.
 */
+const reduce = (arr, func, initialValue) => {
+  let acc = initialValue
+
+  const accumulateCallbackReturn = 
+    (item, index, array) => acc = func(acc, item, index, array)
+
+  arr.forEach(accumulateCallbackReturn)
+
+  return acc
+}
+
+const createItemBasedProperties = (acc, item) => {
+  acc['number-' + item] = item
+  return acc
+}
+
+const sumItems = (acc, item) => acc + item
+const sumItemsPlusIndex = (acc, _, index) => acc + index
+const sumItemsUsingArrayParam = (acc, _, index, array) => acc + array[index]
+
+console.log(reduce([1, 2, 3], sumItems, 0))
+console.log(reduce([2, 3, 4], sumItems, 0))
+console.log(reduce([1, 2], createItemBasedProperties, {}))
+
+console.log(reduce([1, 2], sumItemsPlusIndex, 0))
+console.log(reduce([1, 2], sumItemsUsingArrayParam, 0))
